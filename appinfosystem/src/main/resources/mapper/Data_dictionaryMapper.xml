@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.mapper.Data_dictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.haoyu.entity.Data_dictionary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="typeCode" property="typecode" jdbcType="VARCHAR" />
+    <result column="typeName" property="typename" jdbcType="VARCHAR" />
+    <result column="valueId" property="valueid" jdbcType="BIGINT" />
+    <result column="valueName" property="valuename" jdbcType="VARCHAR" />
+    <result column="createdBy" property="createdby" jdbcType="BIGINT" />
+    <result column="creationDate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="modifyBy" property="modifyby" jdbcType="BIGINT" />
+    <result column="modifyDate" property="modifydate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, typeCode, typeName, valueId, valueName, createdBy, creationDate, modifyBy, modifyDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.haoyu.entity.Data_dictionaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from data_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.haoyu.entity.Data_dictionaryExample" >
+    delete from data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.haoyu.entity.Data_dictionary" >
+    insert into data_dictionary (id, typeCode, typeName, 
+      valueId, valueName, createdBy, 
+      creationDate, modifyBy, modifyDate
+      )
+    values (#{id,jdbcType=BIGINT}, #{typecode,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, 
+      #{valueid,jdbcType=BIGINT}, #{valuename,jdbcType=VARCHAR}, #{createdby,jdbcType=BIGINT}, 
+      #{creationdate,jdbcType=TIMESTAMP}, #{modifyby,jdbcType=BIGINT}, #{modifydate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.haoyu.entity.Data_dictionary" >
+    insert into data_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typecode != null" >
+        typeCode,
+      </if>
+      <if test="typename != null" >
+        typeName,
+      </if>
+      <if test="valueid != null" >
+        valueId,
+      </if>
+      <if test="valuename != null" >
+        valueName,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="creationdate != null" >
+        creationDate,
+      </if>
+      <if test="modifyby != null" >
+        modifyBy,
+      </if>
+      <if test="modifydate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="typecode != null" >
+        #{typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="valueid != null" >
+        #{valueid,jdbcType=BIGINT},
+      </if>
+      <if test="valuename != null" >
+        #{valuename,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyby != null" >
+        #{modifyby,jdbcType=BIGINT},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.haoyu.entity.Data_dictionaryExample" resultType="java.lang.Integer" >
+    select count(*) from data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update data_dictionary
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.typecode != null" >
+        typeCode = #{record.typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typename != null" >
+        typeName = #{record.typename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valueid != null" >
+        valueId = #{record.valueid,jdbcType=BIGINT},
+      </if>
+      <if test="record.valuename != null" >
+        valueName = #{record.valuename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdby != null" >
+        createdBy = #{record.createdby,jdbcType=BIGINT},
+      </if>
+      <if test="record.creationdate != null" >
+        creationDate = #{record.creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyby != null" >
+        modifyBy = #{record.modifyby,jdbcType=BIGINT},
+      </if>
+      <if test="record.modifydate != null" >
+        modifyDate = #{record.modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update data_dictionary
+    set id = #{record.id,jdbcType=BIGINT},
+      typeCode = #{record.typecode,jdbcType=VARCHAR},
+      typeName = #{record.typename,jdbcType=VARCHAR},
+      valueId = #{record.valueid,jdbcType=BIGINT},
+      valueName = #{record.valuename,jdbcType=VARCHAR},
+      createdBy = #{record.createdby,jdbcType=BIGINT},
+      creationDate = #{record.creationdate,jdbcType=TIMESTAMP},
+      modifyBy = #{record.modifyby,jdbcType=BIGINT},
+      modifyDate = #{record.modifydate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haoyu.entity.Data_dictionary" >
+    update data_dictionary
+    <set >
+      <if test="typecode != null" >
+        typeCode = #{typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        typeName = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="valueid != null" >
+        valueId = #{valueid,jdbcType=BIGINT},
+      </if>
+      <if test="valuename != null" >
+        valueName = #{valuename,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null" >
+        creationDate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyby != null" >
+        modifyBy = #{modifyby,jdbcType=BIGINT},
+      </if>
+      <if test="modifydate != null" >
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haoyu.entity.Data_dictionary" >
+    update data_dictionary
+    set typeCode = #{typecode,jdbcType=VARCHAR},
+      typeName = #{typename,jdbcType=VARCHAR},
+      valueId = #{valueid,jdbcType=BIGINT},
+      valueName = #{valuename,jdbcType=VARCHAR},
+      createdBy = #{createdby,jdbcType=BIGINT},
+      creationDate = #{creationdate,jdbcType=TIMESTAMP},
+      modifyBy = #{modifyby,jdbcType=BIGINT},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
